@@ -42,7 +42,7 @@ var qs = require('querystring');
 function getData(request, response) {
   if (request.method == 'POST') {
     // 若不是注册页面,则立即返回
-    if (request.url != "/registerUsers") {
+    if (request.url != "/views/error.html") {
       return;
     }
     var body = '';
@@ -61,6 +61,11 @@ function getData(request, response) {
       // use post['blah'], etc.
       console.log(post.uname);
       console.log(post.upassword);
+      // response.writeHead(200); 
+      // 若注册成功,返回一句话"注册成功",服务器返回数据到ajax
+      response.end("succeed");
+      // 若注册不成功,返回一句话"注册不成功"
+
     });
   }
 }

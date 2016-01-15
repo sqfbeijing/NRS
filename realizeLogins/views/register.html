@@ -12,7 +12,7 @@
 		账户名： <input type="text" name="username"><br><br>
 		密码: <input type="password" name="password"><br><br>
 		再次输入密码: <input type="password" name="password"><br><br>
-		<button type="submit" id="submit">注册</button><br><br>
+		<button type="button" id="submit">注册</button><br><br>
 	</form>
 	已有账户？直接<a href="/views/login.html">登录</a>
 	<script>
@@ -22,22 +22,37 @@
 			/* Act on the event */
 			console.log("点了我")
 			$.ajax({
-				url: '/registerUsers',
+				url: '/views/error.html',
 				type: 'POST',
-				dataType: 'json',
-				data: {uname: userName, upassword: userPassword}
+				// 预期服务器会返回纯文本
+				dataType: 'text',
+				data: {uname: userName, upassword: userPassword},
+				success: function (msg) {
+					// msg是服务器返回的数据
+					console.log(msg);
+					if (msg === "succeed") {
+						alert("注册成功！")
+					} else {
+						alert("注册失败！")
+					}
+				}
 			})
-			// .done(function() {
-			// 	console.log("success");
+			// // 提交到后台
+			// .done(function(msg) {
+			// 	console.log(msg);
+			// 	console.log(typeof msg);
+			// 	console.log(msg.responseText);
 			// })
-			// .fail(function() {
-			// 	console.log("error");
+			// // 提交到后台失败
+			// .fail(function(msg) {
+			// 	console.log("失败");
+			// 	console.log(msg);
 			// })
-			// .always(function() {
-			// 	console.log("complete");
-			// });
+			// // .always(function() {
+			// // 	console.log("complete");
+			// // });
 
-		});
+	});
 
 	</script>
 </body>
