@@ -1,6 +1,6 @@
 // CRUD create read update delete
 // 插入
-var insertDocuments = function(db, callback) {
+var insertDocuments = function(db, callback) {  
   // Get the documents collection 如果没有，就创建这个新表，表名是documents
   var collection = db.collection('documents');
   // Insert some documents
@@ -14,7 +14,7 @@ var insertDocuments = function(db, callback) {
         assert.equal(3, result.ops.length);
         console.log("Inserted 3 documents into the document collection");
         callback(result);
-    });
+      });
 }
 // 更新（修改）
 var updateDocument = function(db, callback) {
@@ -23,10 +23,10 @@ var updateDocument = function(db, callback) {
   // Update document where a is 2, set b equal to 1 （增加b = 1）
   collection.updateOne({ a : 2 }
     , { $set: { b : 1 } }, function(err, result) {
-        assert.equal(err, null);
-        assert.equal(1, result.result.n);
-        console.log("Updated the document with the field a equal to 2");
-        callback(result);
+      assert.equal(err, null);
+      assert.equal(1, result.result.n);
+      console.log("Updated the document with the field a equal to 2");
+      callback(result);
     });  
 }
 
@@ -41,7 +41,7 @@ var findDocuments = function(db, callback) {
     console.log("Found the following records");
     console.dir(docs)
     callback(docs);
-});      
+  });      
 }
 
 var MongoClient = require('mongodb').MongoClient
@@ -56,11 +56,11 @@ MongoClient.connect(url, function(err, db) {
 
   insertDocuments(db, function() {
     updateDocument(db, function() {
-        findDocuments(db, function() {
-            db.close();
-        })
+      findDocuments(db, function() {
+        db.close();
+      })
     });
-});
+  });
 });
 
 /**
