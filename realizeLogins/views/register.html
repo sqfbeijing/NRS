@@ -4,15 +4,41 @@
 	<meta charset="UTF-8">
 	<title>注册页面</title>
 	<link rel="stylesheet" href="/static/css/style.css">
+	<script src="http://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
 </head>
 <body>
 	<h2>请您注册一个新的账户：</h2>
-	<form action="/views/login.html">
-		账户名： <input type="text"><br><br>
-		密码: <input type="password"><br><br>
-		再次输入密码: <input type="password"><br><br>
-		<button type="submit">注册</button><br><br>
+	<form>
+		账户名： <input type="text" name="username"><br><br>
+		密码: <input type="password" name="password"><br><br>
+		再次输入密码: <input type="password" name="password"><br><br>
+		<button type="submit" id="submit">注册</button><br><br>
 	</form>
 	已有账户？直接<a href="/views/login.html">登录</a>
+	<script>
+		$("#submit").click(function(event) {
+			var userName = $("input[name=username]").val();
+			var userPassword = $("input[name=password]:eq(0)").val();
+			/* Act on the event */
+			console.log("点了我")
+			$.ajax({
+				url: '/registerUsers',
+				type: 'POST',
+				dataType: 'json',
+				data: {uname: userName, upassword: userPassword}
+			})
+			// .done(function() {
+			// 	console.log("success");
+			// })
+			// .fail(function() {
+			// 	console.log("error");
+			// })
+			// .always(function() {
+			// 	console.log("complete");
+			// });
+
+		});
+
+	</script>
 </body>
 </html>
