@@ -39,7 +39,8 @@
 					// msg是服务器返回的数据
 					console.log(msg);
 					if (msg === "succeed") {
-						alert("注册成功！");
+						alert("注册成功！马上跳转到登录页面！");
+						window.location.href = "/views/login.html";
 						return; 
 					} else if (msg === "isExistedUserName"){ 
 						alert("用户名已存在！请重新注册个账号！"); 
@@ -48,23 +49,7 @@
 					}
 				}
 			})
-			// // 提交到后台
-			// .done(function(msg) {
-			// 	console.log(msg);
-			// 	console.log(typeof msg); 
-			// 	console.log(msg.responseText);
-			// })
-			// // 提交到后台失败
-			// .fail(function(msg) {
-			// 	console.log("失败");
-			// 	console.log(msg);
-			// })
-			// // .always(function() {
-			// // 	console.log("complete");
-			// // });
-
-});
-
-</script>
+		});
+	</script>
 </body>
 </html>

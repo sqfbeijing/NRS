@@ -25,9 +25,8 @@ function addAUser(name, password) {
 			// db.close();
 		});
 }
-// 查看用户名是否存在,若存在则返回true,否则返回false
-// 传参为string类型
-function isExistedUserName(uName, uPassword, callback) {
+
+function userNameWhetherInDb(uName, uPassword, callback) {
 	var result = false;
 	// 传送到ajax的信息
 	var statesToAjax = {
@@ -35,7 +34,7 @@ function isExistedUserName(uName, uPassword, callback) {
 		succeed: "succeed"
 	};
 	MongoClient.connect(url, function(err, db) {
-		console.log("isExistedUserName 正确地连接到mongodb数据库");
+		console.log("userNameWhetherInDb 正确地连接到mongodb数据库");
 		var collection = db.collection('users');
 		console.log("开始查找");
 		collection.findOne({name: uName}, function (err, doc){
@@ -44,7 +43,7 @@ function isExistedUserName(uName, uPassword, callback) {
 				console.log(err);
 			} else if (doc) {
 				// 若找到了这个doc
-				console.log("isExistedUserName 找到了对应的doc");
+				console.log("userNameWhetherInDb 找到了对应的doc");
 				callback(statesToAjax.existedUserName);
 			} else {
 				console.log("既没有报错也没有找到对应的doc,说明应该插入这个新账号");
@@ -58,5 +57,42 @@ function isExistedUserName(uName, uPassword, callback) {
 	return result;
 }
 
+function loginFormUserNameWhetherInDb(uName, uPassword, callback) {
+	// 传送到ajax的信息
+	var statesToAjax = {
+		noUserName: "noUserName",
+		succeed: "succeed",
+		wrongPassword: "wrongPassword"
+	};
+	MongoClient.connect(url, function(err, db) {
+		console.log("loginFormUserNameWhetherInDb 正确地连接到mongodb数据库");
+		var collection = db.collection('users');
+		console.log("开始查找");
+		collection.findOne({name: uName}, function (err, doc){
+			if (err) {
+				console.log("报错了。");
+				console.log(err);
+			} else if (doc) {
+				// 若找到了这个doc
+				console.log("loginFormUserNameWhetherInDb 找到了对应的doc,账户名存在");
+				console.log("数据库中这个doc的类型是:" + typeof doc);
+				console.log("数据库中这个doc(账户名对应的密码)是:" + doc.password);
+				if (doc.password === uPassword) {
+					console.log("与数据库中账户名密码均一致！");
+					callback(statesToAjax.succeed);
+				} else {
+					console.log("与数据库中账户名一致,但是密码不一致！");
+					callback(statesToAjax.wrongPassword);
+				}
+			} else {
+				console.log("既没有报错也没有找到对应的doc,说明没有这个账户名");
+				callback(statesToAjax.noUserName);
+			}
+		});
+		// console.log("马上关闭数据库")
+		// db.close();
+	});
+}
 exports.addAUser = addAUser;
-exports.isExistedUserName = isExistedUserName;
+exports.userNameWhetherInDb = userNameWhetherInDb;
+exports.loginFormUserNameWhetherInDb = loginFormUserNameWhetherInDb;

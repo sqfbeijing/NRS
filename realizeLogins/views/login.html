@@ -4,15 +4,56 @@
 	<meta charset="UTF-8">
 	<title>登录页面</title>
 	<link rel="stylesheet" href="/static/css/style.css">
-
+	<script src="http://cdn.bootcss.com/jquery/1.8.3/jquery.min.js"></script>
 </head>
 <body>
 	<h2>登录</h2>
-	<form action="">
-		账户名:<input type="text"><br><br>
-		密码: &nbsp;  &nbsp;<input type ="password"><br><br>
-		<button type="submit">提交</button>
+	<form>
+		账户名:<input type="text" name="username"><br><br>
+		密码: &nbsp;  &nbsp;<input type ="password" name="password"><br><br>
+		<button type="button" id="submit">提交</button>
 	</form>
 	<a href="/views/register.html">还没账号呢，我要注册</a>
+	<script>
+		$("#submit").click(function(event) {
+			/* Act on the event */
+			var userName = $("form input[name=username]").val();
+			var userPassword = $("form input[name=password]").val();
+			var $userNameInput = $("form input[name=username]");
+			var $userPasswordInput = $("form input[name=password]");
+
+			if ($.trim(userName) === "") {
+				alert("输入账户名为空！请重新输入！");
+				return;
+			}
+			if ($.trim(userPassword) === "") {
+				alert("输入密码为空！请重新输入！");
+				return;
+			}
+			$.ajax({
+				url: '/loginForm',
+				type: 'POST',
+				dataType: 'text',
+				data: {uname: userName, upassword: userPassword},
+				success: function (msg) {
+					// msg是服务器返回的数据
+					console.log(msg);
+					if (msg === "succeed") {
+						alert("登录成功！马上跳转到home页面！");
+						window.location.href = "/views/home.html";
+						return; 
+					} else if (msg === "noUserName") { 
+						alert("用户名不存在！请重新输入！"); 
+						$userNameInput.val("");
+						return;
+					} else if (msg === "wrongPassword") {
+						alert("您输入的密码错误！请重新输入！")
+						$userPasswordInput.val("");
+						return;
+					}
+				}
+			});
+		});
+	</script>
 </body>
 </html>
