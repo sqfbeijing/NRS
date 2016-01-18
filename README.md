@@ -8,3 +8,4 @@ mime 模块处理 mime类型辨别；
 body-parser中间件用于json传输数据到后端；(还没有用到)
 mongodb
 mongoose
+by sqf
