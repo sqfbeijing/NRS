@@ -17,8 +17,9 @@ function addAUser(name, password){
 	  	assert.equal(null, err);
 	  	assert.equal(1, r.insertedCount);
 	  })
+	  // 数据库插入完成
 	  // 关闭数据库
-	  db.close();
+	  // db.close();
 	});
 }
 exports.addAUser = addAUser;

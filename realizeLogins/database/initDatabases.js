@@ -17,8 +17,11 @@ function initdb(){
 	  	assert.equal(null, err);
 	  	assert.equal(1, r.insertedCount);
 	  })
-	  // 关闭数据库
+	  // console.log("关闭数据库前1ms")
+	  	  // 先别关闭数据库，后面还会连接
 	  // db.close();
+	  // console.log("关闭数据库后1ms")
+
 	});
 }
 exports.initdb = initdb;
