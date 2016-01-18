@@ -27,8 +27,13 @@ function addAUser(name, password) {
 }
 // 查看用户名是否存在,若存在则返回true,否则返回false
 // 传参为string类型
-function isExistedUserName(uName) {
+function isExistedUserName(uName, uPassword, callback) {
 	var result = false;
+	// 传送到ajax的信息
+	var statesToAjax = {
+		existedUserName: "isExistedUserName",
+		succeed: "succeed"
+	};
 	MongoClient.connect(url, function(err, db) {
 		console.log("isExistedUserName 正确地连接到mongodb数据库");
 		var collection = db.collection('users');
@@ -40,9 +45,11 @@ function isExistedUserName(uName) {
 			} else if (doc) {
 				// 若找到了这个doc
 				console.log("isExistedUserName 找到了对应的doc");
-				result = true;
+				callback(statesToAjax.existedUserName);
 			} else {
-				console.log("即没有报错也没有找到对应的doc")
+				console.log("既没有报错也没有找到对应的doc,说明应该插入这个新账号");
+				addAUser(uName, uPassword);
+				callback(statesToAjax.succeed);
 			}
 		});
 		// console.log("马上关闭数据库")

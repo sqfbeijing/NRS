@@ -24,41 +24,41 @@ function getData(request, response) {
       // use post['blah'], etc.
       // console.log(post.uname);
       // console.log(post.upassword);
-      console.log("现在从dealajax文件存放数据到数据库");
       // 若ajax获取到了注册新用户,则存到数据库
       var addAUser = require("../database/crud").addAUser;
       var isExistedUserName = require("../database/crud").isExistedUserName;
-      
-      console.log("post.uname的类型是" + typeof post.uname);
 
-      // function f1(post.uname, callback) {
-      //   if (isExistedUserName(post.uname)) {
-      //     console.log("有同名账户名");
-      //     response.end("existedUserName");
-      //     return;
-      //   } else {
-      //     callback(post.uname, post.upassword);
+      console.log("post.uname的类型是" + typeof post.uname);
+      var post_uname = post.uname;
+      var post_upassword = post.upassword;
+      // states是string类型 传输状态返回到ajax
+      function sendStatesToAjax(states) {
+        console.log("我是isExistedUserName的回调函数,states为" + states);
+        response.end(states);
+      }
+      isExistedUserName(post_uname, post_upassword, sendStatesToAjax);
+
+      //   function f1(post_uname, callback) {
+      //     if (isExistedUserName(post_uname)) {
+      //       console.log("有同名账户名");
+      //       response.end("existedUserName");
+      //       return;
+      //     } else {
+      //       callback( post_uname, post_upassword);
+      //     }
       //   }
+      //   function f2 (post_uname, post_upassword){
+      //     addAUser(post_uname, post_upassword);
+      //     console.log("dealAjax 37 成功将名为" + post_uname + "  密码为" + post_upassword + "的用户存到了数据库");
+      //           // 若注册成功,返回一句话"注册成功",服务器返回数据到ajax
+      //   // console.log("返回了succeed到前端 0")
+      //   response.end("succeed");
+      //   // console.log("返回了succeed到前端 1")
       // }
-      // function f2 (post.uname, post.upassword){
-        
-      // }
-      // 若有相同账户名存在
-      if (isExistedUserName(post.uname)) {
-        console.log("有同名账户名");
-        response.end("existedUserName");
-        return;
-      } else {
-        addAUser(post.uname, post.upassword);
-        console.log("dealAjax 37 成功将名为" + post.uname + "  密码为" + post.upassword + "的用户存到了数据库");
-      // response.writeHead(200); 
-      // 若注册成功,返回一句话"注册成功",服务器返回数据到ajax
-      // console.log("返回了succeed到前端 0")
-      response.end("succeed");
-      // console.log("返回了succeed到前端 1")
-      // 若注册不成功,返回一句话"注册不成功"一个
-    }
-  });
+      // f1(post_uname, function(post_uname, post_upassword) {
+      //   f2(post_uname, post_upassword);
+      // })
+    });
 }
 }
 exports.getData = getData;

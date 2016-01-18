@@ -40,9 +40,10 @@
 					console.log(msg);
 					if (msg === "succeed") {
 						alert("注册成功！");
-						return;
-					} else if (msg === "existedUserName"){ 
-						alert("用户名已存在！"); 
+						return; 
+					} else if (msg === "isExistedUserName"){ 
+						alert("用户名已存在！请重新注册个账号！"); 
+						// isExistedUserName
 						return;
 					}
 				}
