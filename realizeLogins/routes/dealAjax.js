@@ -39,6 +39,7 @@ function getData(request, response) {
   }
 }
 
+// 处理登录页面的ajax
 function loginForm(request, response){
   if (request.method !== "POST" || request.url !== "/loginForm") {
     // console.log("loginForm 既不是POST 也不是/loginForm");
@@ -61,16 +62,24 @@ function loginForm(request, response){
       // console.log(post.uname);
       // console.log(post.upassword);
       // 若ajax获取到了equire("../database/crud").addAUser;
+      // 调用数据库查询
       var loginFormUserNameWhetherInDb = require("../database/crud").loginFormUserNameWhetherInDb;
 
       console.log("post.uname的类型是" + typeof post.uname);
       var post_uname = post.uname;
       var post_upassword = post.upassword;
       // states是string类型 传输状态返回到ajax
-      function sendStatesToAjax(states) {
+      function sendStatesToAjax(states, uName) {
         console.log("我是loginFormUserNameWhetherInDb的回调函数,states为" + states);
+        // 若states为 "succeed" 则： ajax返回之前，应执行user加密、写入cookie到浏览器的函数
+        if (states === "succeed") {
+          // 设置cookie方法
+          var setCookie = require("../bin/manageCookie").setCookie;
+          setCookie(request, response, uName);
+        }
         response.end(states);
       }
+      // 数据库做完操作之后执行回调函数sendStatesToAjax
       loginFormUserNameWhetherInDb(post_uname, post_upassword, sendStatesToAjax);
     });
 }

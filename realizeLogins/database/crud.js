@@ -79,7 +79,8 @@ function loginFormUserNameWhetherInDb(uName, uPassword, callback) {
 				console.log("数据库中这个doc(账户名对应的密码)是:" + doc.password);
 				if (doc.password === uPassword) {
 					console.log("与数据库中账户名密码均一致！");
-					callback(statesToAjax.succeed);
+					// 这里多写一个uName参数，用于匹配成功之后，传到另外的函数进行加密操作
+					callback(statesToAjax.succeed, uName);
 				} else {
 					console.log("与数据库中账户名一致,但是密码不一致！");
 					callback(statesToAjax.wrongPassword);
