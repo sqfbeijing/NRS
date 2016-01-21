@@ -1,20 +1,17 @@
-function f1 (callback) {
-	// body...
-	var x = 2 ;
-	if (x == 3) {
-		setTimeout(function(){
-			console.log("我是f1函数;")
-		}, 4000);
-	}
-	else {
-		callback();
-	}
-}
+var url = "baidu";
 
-function f2 () {
-	// body...
-	console.log("我是f2函数;")
+function a() {
+	setTimeout(function() {
+		console.log(url);
+	}, 3000);
+	setTimeout(function() {
+		console.log(333);
+	}, 1000);
+	// console.log(url);
+	var r = 0;
+	for (var i = 0; i < 10000000; i++) {
+		r += 1;
+	}
+	console.log(r)
 }
-
-f1(f2);
-// f2();
+exports.a = a;

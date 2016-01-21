@@ -44,6 +44,9 @@
 						return; 
 					} else if (msg === "isExistedUserName"){ 
 						alert("用户名已存在！请重新注册个账号！"); 
+						$("input[name=username]").val("");
+						$("input[name=password]:eq(0)").val("");
+						$("input[name=password]:eq(1)").val("");
 						// isExistedUserName
 						return;
 					}
