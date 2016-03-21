@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>管理员默认首页</title>
+	<link rel="stylesheet" href="stylesheets/admin.css">
+	<script src="http://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js"></script>
+	<style>
+		.header-top .name {
+			width: 300px;
+		}
+		.bigOptions {
+			font-size: 14px;
+			width: 300px;
+			width: 220px;
+			/* height: 500px; */
+			position: absolute;
+			background: #EAEDF1;
+			left: 0;
+			bottom: 0;
+			top: 50px;
+			overflow-y: auto;
+		}
+		.bigContents {
+			top: 50px;
+			position: absolute;
+			left: 220px;
+			right: 0;
+			bottom: 0;
+			overflow-y: auto;
+		}
+		.options-level1 {
+			/*text-align: center;*/
+			color: white;
+			height: 100%;
+			background: #22282E;
+			width: 100px;
+		}
+		.options-level1 .item {
+			cursor: pointer;
+		}
+		.options-level1 .item.on {
+			background: red;
+		}
+		.options-level2 {
+			/*width: 180px;*/
+			width: 120px;
+			height: 100%;
+			text-align: center;
+		}
+		.options-level2-item {
+			display: none;
+		}
+		.options-level2-item.db {
+			display: block;
+		}
+		.options-level2-item .news-classification {
+			cursor: pointer;
+			text-align: center;
+			/*background: red;*/
+		}
+		.options-level2-item .news-classification.on {
+			background: white;
+		}
+		.bigContents-content {
+			display: none;
+		}
+		.bigContents-content.on {
+			display: block;
+		}
+		.bigContents-content-news-classification {
+			display: none;
+			font-size: 14px;
+		}
+		.bigContents-content-news-classification.on {
+			display: block;
+		}
+		.news-content-title {
+			border-bottom: 1px solid red;
+		}
+		.news-content-options .name, .news-content-options .time, .news-content-options .options{
+			float: left;
+			width: 200px;
+		}
+		.news-content-options, .news-content-item {
+			border-bottom: 1px solid red;
+		}
+		.news-editBlock {
+			/*width: 300px;*/
+			/*height: 900px;*/
+			background: #E2E2E2;
+		}
+	</style>
+</head>
+<body>
+	<div class="header-wrapper  fs14 tac">
+		<header class="header-top">
+			<div class="name fl">管理员名字: <%= admin.name %></div>
+			<div class="logOut cp fl">
+				<div class="logoutBtn">
+					注销
+				</div>
+				<!-- <a href="userLogout.html"></a> -->
+			</div>
+		</header>
+	</div>
+	<div class="bigOptions ">
+		<div class="options-level1 fl">
+			<ul>
+				<li class="item on" >管理员信息</li>
+				<li class="item">会员信息</li>
+				<li class="item">管理新闻</li>
+				<li class="item">管理新闻评论</li>
+			</ul>
+		</div>
+		<div class="options-level2 fl">
+			<div class="options-level2-item db">
+				管理员信息
+			</div>
+			<div class="options-level2-item ">
+				会员信息
+			</div>
+			<div class="options-level2-item ">
+				<ul>
+					<li class="news-classification">
+						国内
+					</li>
+					<li class="news-classification ">
+						国际
+					</li>
+					<li class="news-classification ">
+						互联网
+					</li>
+					<li class="news-classification ">
+						体育
+					</li>
+					<li class="news-classification ">
+						财经
+					</li>
+					<li class="news-classification">
+						娱乐
+					</li>
+					<li class="news-classification">
+						军事
+					</li>
+					<li class="news-classification">
+						社会
+					</li>
+					<li class="news-classification">
+						游戏
+					</li>
+				</ul>
+			</div>
+			<div class="options-level2-item ">
+				新闻评论
+			</div>
+		</div>
+	</div>
+	<div class="bigContents ">
+		<div class="welcome bigContents-content on">
+			欢迎来到NRS后台管理系统！
+		</div>
+		<div class="bigContents-content news">
+			<div class="bigContents-content-news-classification">
+				<div class="news-content-title">
+					国内新闻列表
+					<button>添加新闻</button>
+				</div>
+
+				<div class="news-content-items">
+					<div class="news-content-options clear">
+						<span class="name">
+							标题</span>
+							<span class="time">发布时间</span>
+							<span class="options">操作</span>
+						</div>
+						<div class="news-content-item-wrapper">
+							<div class="news-content-item">
+								<span class="name">
+									袁驷：核安全立法已经纳入立法规划</span>
+									<span class="time">2016年3月10日12时04分</span>
+									<button>编辑</button>
+									<button>删除</button>
+									<button>设为热点</button>
+								</div>	
+								<div class="news-content-item">
+									<span class="name">
+										袁驷：核安全立法已经纳入立法规划</span>
+										<span class="time">2016年3月10日12时04分</span>
+										<button>编辑</button>
+										<button>删除</button>
+										<button>设为热点</button>
+									</div>	
+									<div class="news-content-item">
+										<span class="name">
+											袁驷：核安全立法已经纳入立法规划</span>
+											<span class="time">2016年3月10日12时04分</span>
+											<button>编辑</button>
+											<button>删除</button>
+											<button>设为热点</button>
+										</div>	
+										<div class="news-content-item">
+											<span class="name">
+												袁驷：核安全立法已经纳入立法规划</span>
+												<span class="time">2016年3月10日12时04分</span>
+												<button>编辑</button>
+												<button>删除</button>
+												<button>设为热点</button>
+											</div>	
+											<div class="news-content-item">
+												<span class="name">
+													袁驷：核安全立法已经纳入立法规划</span>
+													<span class="time">2016年3月10日12时04分</span>
+													<button>编辑</button>
+													<button>删除</button>
+													<button>设为热点</button>
+												</div>	
+												<div class="news-content-item">
+													<span class="name">
+														袁驷：核安全立法已经纳入立法规划</span>
+														<span class="time">2016年3月10日12时04分</span>
+														<button>编辑</button>
+														<button>删除</button>
+														<button>设为热点</button>
+													</div>	
+													<div class="news-content-item">
+														<span class="name">
+															袁驷：核安全立法已经纳入立法规划</span>
+															<span class="time">2016年3月10日12时04分</span>
+															<button>编辑</button>
+															<button>删除</button>
+															<button>设为热点</button>
+														</div>	
+														<div class="news-content-item">
+															<span class="name">
+																袁驷：核安全立法已经纳入立法规划</span>
+																<span class="time">2016年3月10日12时04分</span>
+																<button>编辑</button>
+																<button>删除</button>
+																<button>设为热点</button>
+															</div>	
+															<div class="news-content-item">
+																<span class="name">
+																	袁驷：核安全立法已经纳入立法规划</span>
+																	<span class="time">2016年3月10日12时04分</span>
+																	<button>编辑</button>
+																	<button>删除</button>
+																	<button>设为热点</button>
+																</div>	
+																<div class="news-content-item">
+																	<span class="name">
+																		袁驷：核安全立法已经纳入立法规划</span>
+																		<span class="time">2016年3月10日12时04分</span>
+																		<button>编辑</button>
+																		<button>删除</button>
+																		<button>设为热点</button>
+																	</div>
+																</div>
+																
+															</div>
+															<div class="news-editBlock">
+																这里是编辑框
+																<div class="title">
+																	<span class="name">标题：</span> <input type="text">
+																</div>
+																<div class="author">
+																	<span class="name">
+																		作者：
+																	</span>
+																	<input type="text">
+																</div>
+																<div class="content">
+																	<div class="words">
+																		<span class="name">
+																			内容：<br>
+																		</span>
+																		<textarea name="" id="" cols="30" rows="10"></textarea>
+																	</div>
+																	<div class="upload uploadImg">
+																		<div class="name">
+																			上传图片：
+																		</div>
+																		<input type="text">
+																	</div>
+																	<div class="upload uploadVideo">
+																		<div class="name">
+																			上传视频：
+																		</div>
+																		<input type="text">
+																	</div>
+																	<div class="submit">
+																		<button class="confirm">提交</button>
+																		<button class="cancel">取消</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="bigContents-content-news-classification">
+															这里是国际新闻
+														</div>
+													</div>
+												</div>
+												<script>
+													$(function() {
+														$(".logoutBtn").click(function(event) {
+															$.ajax({
+																url: '/admin/adminLogout.html',
+																type: 'post',
+																success: function(data) {
+																	if (data) {
+																		if (data === "logoutSuccess") {
+																			alert("注销成功！跳转到管理员登录页面！");
+																			window.location.href = "/admin/adminLogin.html";
+																		}
+																	} else {
+																		alert("404  未返回数据");
+																	}
+																}
+															});
+														});
+			// 点击一级操作
+			$(".options-level1 .item").click(function(event) {
+				/* Act on the event */
+				var index = $(this).index();
+				// 若不在此一级页面，则右侧回到欢迎页
+				if (!$(this).hasClass('on')) {
+					$(".bigContents-content.welcome").addClass('on').siblings().removeClass('on');
+				}
+				$(this).addClass('on').siblings().removeClass('on');
+				// 显示二级内容
+				$(".options-level2 .options-level2-item").eq(index).addClass('db').siblings().removeClass('db');
+			});
+			// 点击新闻类别
+			$(".options-level2-item .news-classification").click(function(event) {
+				/* Act on the event */
+				$(this).addClass("on").siblings().removeClass('on');
+				// 右侧大content显示news
+				$(".bigContents-content.news").addClass('on').siblings().removeClass('on');
+				var index = $(this).index();
+
+				$(".bigContents-content.news .bigContents-content-news-classification").eq(index).addClass('on').siblings().removeClass('on');
+			});
+		})
+</script>
+</body>
+</html>

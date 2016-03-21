@@ -34,5 +34,4 @@ var server = http.createServer(function(request, response) {
 }).listen(3000);
 
 
-
 // /Users/shaoqianfei/Desktop/NRS/realizeLogins

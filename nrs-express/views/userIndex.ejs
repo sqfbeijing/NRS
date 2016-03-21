@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户默认首页</title>
+	<link rel="stylesheet" href="stylesheets/style.css">
+	<script src="http://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js"></script>
+	<style>
+		/*main块*/
+		.main {
+			width: 1000px;
+			margin: 0 auto;
+		}
+		.header .user .name {
+			margin-right: 20px;
+		}
+		/*S 导航*/
+		.main-nav {
+			font-size: 18px;
+			background: red;
+		}
+		.main-nav ul li {
+			cursor: pointer;
+			float: left;
+			background: rgb(0, 115, 230);
+		}
+		.main-nav ul li.on {
+			background: #0767C8;
+		}
+		.main-nav ul li:hover {
+			background: #0767C8;
+		}
+		.main-nav ul li a {
+			padding: 0px 31.1093px;
+			color: white;
+			line-height: 38px;
+		}
+		/*E 导航*/
+
+		/*S main标题*/
+		.mainNewsType-name {
+			text-align: left;
+			font-size: 20px;
+			margin-left: 10px;
+			font-weight: 900;
+		}
+		.mainNewsType-itemName {
+			line-height: 50px;
+			font-size: 16px;
+			text-align: left;
+			margin-left: 10px;
+		}
+		/*S main图片块*/
+		.mainNewsType-itemImages .smallImages   {
+			margin: 0 70px;
+		}
+		.mainNewsType-itemImages .smallImages .item img {
+			height: 120px;
+		}
+		.mainNewsType-itemImages .bigImages   {
+			overflow: auto;
+			height: 210px;
+			width: 300px
+		}
+		.mainNewsType-itemImages .bigImages .item  {
+			float: left;
+			width: 300px;
+			overflow: auto;
+		}
+		.mainNewsType-itemImages .bigImages .itemsWrapper  {
+			width: 1400px;
+		}
+		.mainNewsType-itemImages .bigImages .item img {
+			height: 170px;
+		}
+/*		.main-nav a {
+			padding: 0 10px 0 10px;
+		}*/
+		/*footer*/
+		.footer {
+			width: 1000px;
+			margin: 0 auto;
+		}
+		.footer .links {
+			line-height: 30px;
+		}
+		.footer .links .title {
+			margin-right: 20px;
+			display: inline;
+		}
+		.footer .links a {
+			margin-right: 30px;
+			color: black;
+		}
+		.footer .links a:hover {
+			color: #0767C8;
+		}
+		.footer .title {
+			line-height: 30px;
+		}
+	</style>
+</head>
+<body>
+	<div class="header-wrapper  fs14 tac">
+		<header class="header clear">
+			<div class="title fl">
+				News Release System
+			</div>
+			<div class="user fr clear">
+				<div class="name fl">账户名: <%= user.name %></div>
+				<div class="logOut cp fl">
+					<div class="logoutBtn">
+						注销
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+	<div class="main-wrapper fs14 tac">
+		<div class="main">
+			<div class="main-nav clear">
+				<ul class="list clear">
+					<li class="on">
+						<a href="">首页</a>
+					</li>
+					<li>
+						<a href="">国内</a>
+					</li>
+					<li>
+						<a href="">国际</a>
+					</li>
+					<li>
+						<a href="">社会</a>
+					</li>
+					<li>
+						<a href="">军事</a>
+					</li>
+					<li>
+						<a href="">财经</a>
+					</li>
+					<li>
+						<a href="">娱乐</a>
+					</li>
+					<li>
+						<a href="">互联网</a>
+					</li>
+					<li>
+						<a href="">体育</a>
+					</li>
+					<li>
+						<a href="">游戏</a>
+					</li>
+				</ul>
+				
+			</div>
+			<div class="mainNewsType guonei">
+				<div class="mainNewsType-name">
+					国内
+				</div>
+				<div class="mainNewsType-name-content clear">
+					<div class="mainNewsType-itemName fl">
+						<% var items = []; %>
+						<% var newsType = "国内"; %>
+						<% for (var i = 0; i < docs.length; i++) { %>
+						<% if (docs[i].newsType === newsType) { %>
+						<% items = docs[i].items; %>
+						<% } %>
+						<% } %>
+						<% items.forEach(function(elem, index, array){ %>
+
+						<% if (elem.hot) { %>
+						<!-- 找热点新闻 -->
+						<div class="aItemNameInType"><%= elem.title %></div>
+						<% } %>
+						<% }); %>
+					</div>
+					<div class="mainNewsType-itemImages fr clear">
+						<% var items = []; %>
+						<% var newsType = "国内"; %>
+						<% var hotArr = []; %>
+						<% for (var i = 0; i < docs.length; i++) { %>
+						<% if (docs[i].newsType === newsType) { %>
+						<% items = docs[i].items; %>
+						<% } %>
+						<% } %>
+						<!-- 注意！热点新闻必须要图片和视频！ -->
+						<!-- 将热点新闻放到数组 -->
+						<% items.forEach(function(elem, index, array){ %>
+						<% if (elem.hot) { %>
+						<!-- 最新的放到最前面 -->
+						<% hotArr.unshift(elem); %>
+						<% } %>
+						<% }); %>
+
+						<div class="smallImages fl">
+							<!-- 小图区 -->
+							
+							<% for (var i = 0; i < 2; i++) { %>
+							<% if (hotArr[i].images[0]) { %>
+							<div class="item">
+								<img src=<%= hotArr[i].images[0].renderURL %> alt="">
+								<div class="aItemNameInType"><%= hotArr[i].title %></div>
+							</div>
+
+							<% } %>
+
+							<% } %>
+							
+
+						</div>
+
+						<div class="bigImages clear fl">
+							<!-- 小图区 -->
+							<div class="itemsWrapper">
+								<% for (var i = 2; i < 5; i++) { %>
+								<% if (hotArr[i].images[0]) { %>
+								<div class="item">
+									<img src=<%= hotArr[i].images[0].renderURL %> alt="">
+									<div class="aItemNameInType"><%= hotArr[i].title %></div>
+								</div>
+								<% } %>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="mainNewsType guonei">
+				<div class="mainNewsType-name">
+					国内
+				</div>
+				<div class="mainNewsType-name-content clear">
+					<div class="mainNewsType-itemName fl">
+						<% var items = []; %>
+						<% var newsType = "国内"; %>
+						<% for (var i = 0; i < docs.length; i++) { %>
+						<% if (docs[i].newsType === newsType) { %>
+						<% items = docs[i].items; %>
+						<% } %>
+						<% } %>
+						<% items.forEach(function(elem, index, array){ %>
+
+						<% if (elem.hot) { %>
+						<!-- 找热点新闻 -->
+						<div class="aItemNameInType"><%= elem.title %></div>
+						<% } %>
+						<% }); %>
+					</div>
+					<div class="mainNewsType-itemImages fr clear">
+						<% var items = []; %>
+						<% var newsType = "国内"; %>
+						<% var hotArr = []; %>
+						<% for (var i = 0; i < docs.length; i++) { %>
+						<% if (docs[i].newsType === newsType) { %>
+						<% items = docs[i].items; %>
+						<% } %>
+						<% } %>
+						<!-- 注意！热点新闻必须要图片和视频！ -->
+						<!-- 将热点新闻放到数组 -->
+						<% items.forEach(function(elem, index, array){ %>
+						<% if (elem.hot) { %>
+						<!-- 最新的放到最前面 -->
+						<% hotArr.unshift(elem); %>
+						<% } %>
+						<% }); %>
+
+						<div class="smallImages fl">
+							<!-- 小图区 -->
+							
+							<% for (var i = 0; i < 2; i++) { %>
+							<% if (hotArr[i].images[0]) { %>
+							<div class="item">
+								<img src=<%= hotArr[i].images[0].renderURL %> alt="">
+								<div class="aItemNameInType"><%= hotArr[i].title %></div>
+							</div>
+
+							<% } %>
+
+							<% } %>
+							
+
+						</div>
+
+						<div class="bigImages clear fl">
+							<!-- 小图区 -->
+							<div class="itemsWrapper">
+								<% for (var i = 2; i < 5; i++) { %>
+								<% if (hotArr[i].images[0]) { %>
+								<div class="item">
+									<img src=<%= hotArr[i].images[0].renderURL %> alt="">
+									<div class="aItemNameInType"><%= hotArr[i].title %></div>
+								</div>
+								<% } %>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="mainNewsType guonei">
+				<div class="mainNewsType-name">
+					国内
+				</div>
+				<div class="mainNewsType-name-content clear">
+					<div class="mainNewsType-itemName fl">
+						<% var items = []; %>
+						<% var newsType = "国内"; %>
+						<% for (var i = 0; i < docs.length; i++) { %>
+						<% if (docs[i].newsType === newsType) { %>
+						<% items = docs[i].items; %>
+						<% } %>
+						<% } %>
+						<% items.forEach(function(elem, index, array){ %>
+
+						<% if (elem.hot) { %>
+						<!-- 找热点新闻 -->
+						<div class="aItemNameInType"><%= elem.title %></div>
+						<% } %>
+						<% }); %>
+					</div>
+					<div class="mainNewsType-itemImages fr clear">
+						<% var items = []; %>
+						<% var newsType = "国内"; %>
+						<% var hotArr = []; %>
+						<% for (var i = 0; i < docs.length; i++) { %>
+						<% if (docs[i].newsType === newsType) { %>
+						<% items = docs[i].items; %>
+						<% } %>
+						<% } %>
+						<!-- 注意！热点新闻必须要图片和视频！ -->
+						<!-- 将热点新闻放到数组 -->
+						<% items.forEach(function(elem, index, array){ %>
+						<% if (elem.hot) { %>
+						<!-- 最新的放到最前面 -->
+						<% hotArr.unshift(elem); %>
+						<% } %>
+						<% }); %>
+
+						<div class="smallImages fl">
+							<!-- 小图区 -->
+							
+							<% for (var i = 0; i < 2; i++) { %>
+							<% if (hotArr[i].images[0]) { %>
+							<div class="item">
+								<img src=<%= hotArr[i].images[0].renderURL %> alt="">
+								<div class="aItemNameInType"><%= hotArr[i].title %></div>
+							</div>
+
+							<% } %>
+
+							<% } %>
+							
+
+						</div>
+
+						<div class="bigImages clear fl">
+							<!-- 小图区 -->
+							<div class="itemsWrapper">
+								<% for (var i = 2; i < 5; i++) { %>
+								<% if (hotArr[i].images[0]) { %>
+								<div class="item">
+									<img src=<%= hotArr[i].images[0].renderURL %> alt="">
+									<div class="aItemNameInType"><%= hotArr[i].title %></div>
+								</div>
+								<% } %>
+								<% } %>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<div class="footer-wrapper fs14 tac">
+		<div class="footer">
+			<div class="links">
+				<div class="title">友情链接：</div>
+				<a href="">百度新闻</a>
+				<a href="">腾讯新闻</a>
+				<a href="">网易新闻</a>
+				<a href="">搜狐媒体</a>
+				<a href="">今日头条</a>
+			</div>
+			<div class="title">
+				<div class="">新闻发布系统</div>
+				<div class="">News Release System</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(".logoutBtn").click(function(event) {
+			$.ajax({ 
+				url:'/userLogout.html',
+				type:'post',
+				success: function(data){ 
+					if(data){ 
+						if (data === "logoutSuccess") {
+							alert("注销成功！跳转到游客首页！");
+							window.location.href = "touristIndex.html";
+						}
+					} else {
+						alert("404  未返回数据");
+					}
+				}
+			});
+		});
+	</script>
+</body>
+</html>

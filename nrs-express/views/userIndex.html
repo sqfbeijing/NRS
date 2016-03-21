@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户默认首页</title>
+	<link rel="stylesheet" href="stylesheets/style.css">
+	<script src="http://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+	<div class="header-wrapper  fs14 tac">
+		<header class="header-top">
+			<div class="name">账户名: sqfbeijing</div>
+			<div class="logOut cp">
+				<div class="logoutBtn">
+					注销
+				</div>
+				<!-- <a href="userLogout.html"></a> -->
+			</div>
+		</header>
+	</div>
+	<div class="main-wrapper fs14 tac">
+		<div class="main">
+			新闻新闻
+			新闻新闻
+			新闻新闻
+			新闻新闻
+			新闻新闻
+			新闻新闻
+			新闻新闻
+		</div>
+	</div>
+	<div class="footer-wrapper fs14 tac">
+		<div class="footer">
+			这里是页脚footer
+		</div>
+	</div>
+	<script>
+		$(".logoutBtn").click(function(event) {
+			$.ajax({ 
+				url:'/userLogout.html',
+				type:'post',
+				success: function(data){ 
+					if(data){ 
+						if (data === "logoutSuccess") {
+							alert("注销成功！跳转到游客首页！");
+							window.location.href = "touristIndex.html";
+						}
+					} else {
+						alert("404  未返回数据");
+					}
+				}
+			});
+		});
+	</script>
+	logoutSuccess
+</body>
+</html>

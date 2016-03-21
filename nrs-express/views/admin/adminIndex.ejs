@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>管理员默认首页</title>
+	<link rel="stylesheet" href="stylesheets/admin.css">
+	<script src="http://lib.sinaapp.com/js/jquery/1.8.3/jquery.min.js"></script>
+	<style>
+		.header-top .name {
+			width: 300px;
+		}
+		.bigOptions {
+			font-size: 14px;
+			width: 300px;
+			width: 220px;
+			/* height: 500px; */
+			position: absolute;
+			background: #EAEDF1;
+			left: 0;
+			bottom: 0;
+			top: 50px;
+			overflow-y: auto;
+		}
+		.bigContents {
+			top: 50px;
+			position: absolute;
+			left: 220px;
+			right: 0;
+			bottom: 0;
+			overflow-y: auto;
+		}
+		.options-level1 {
+			/*text-align: center;*/
+			color: white;
+			height: 100%;
+			background: #22282E;
+			width: 100px;
+		}
+		.options-level1 .item {
+			cursor: pointer;
+		}
+		.options-level1 .item.on {
+			background: red;
+		}
+		.options-level2 {
+			/*width: 180px;*/
+			width: 120px;
+			height: 100%;
+			text-align: center;
+		}
+		.options-level2-item {
+			display: none;
+		}
+		.options-level2-item.db {
+			display: block;
+		}
+		.options-level2-item .news-classification {
+			cursor: pointer;
+			text-align: center;
+			/*background: red;*/
+		}
+		.options-level2-item .news-classification.on {
+			background: white;
+		}
+		.bigContents-content {
+			display: none;
+		}
+		.bigContents-content.on {
+			display: block;
+		}
+		.bigContents-content-news-classification {
+			display: none;
+			font-size: 14px;
+		}
+		.bigContents-content-news-classification.on {
+			display: block;
+		}
+		.news-content-title {
+			border-bottom: 1px solid red;
+		}
+		.news-content-options .name, .news-content-options .time, .news-content-options .options{
+			float: left;
+			width: 200px;
+		}
+		.news-content-options, .news-content-item {
+			border-bottom: 1px solid red;
+		}
+		.news-content-item.hot {
+			color: red;
+		}
+		.news-editBlock {
+			/*width: 300px;*/
+			/*height: 900px;*/
+			display: none;
+			background: #E2E2E2;
+		}
+		.news-addBlock {
+			/*width: 300px;*/
+			/*height: 900px;*/
+			display: none;
+			background: #E2E2E2;
+		}
+		.news-editBlock.on {
+			display: block;
+		}
+		.news-addBlock.on {
+			display: block;
+		}
+		.news-content-pages .allPages {
+			text-align: center;
+		}
+		.news-content-pages .allPages .number {
+			cursor: pointer;
+			display: inline-block;
+			width: 20px;
+		}
+		.news-content-pages .allPages .number.current {
+			background: red;
+			color: white;
+		}
+		.uploadImageForm input.typeName,  .uploadVideoForm input.typeName{
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div class="header-wrapper  fs14 tac">
+		<header class="header-top">
+			<div class="name fl">管理员名字: <%= admin.name %></div>
+			<div class="logOut cp fl">
+				<div class="logoutBtn">
+					注销
+				</div>
+				<!-- <a href="userLogout.html"></a> -->
+			</div>
+		</header>
+	</div>
+	<div class="bigOptions ">
+		<div class="options-level1 fl">
+			<ul>
+				<li class="item on" >管理员信息</li>
+				<li class="item">会员信息</li>
+				<li class="item">管理新闻</li>
+				<li class="item">管理新闻评论</li>
+			</ul>
+		</div>
+		<div class="options-level2 fl">
+			<div class="options-level2-item db">
+				管理员信息
+			</div>
+			<div class="options-level2-item ">
+				会员信息
+			</div>
+			<div class="options-level2-item ">
+				<ul>
+					<li class="news-classification">
+						<span class="name">国内</span>
+					</li>
+					<li class="news-classification ">
+						<span class="name">国际</span>
+					</li>
+					<li class="news-classification ">
+						<span class="name">互联网</span>
+					</li>
+					<li class="news-classification ">
+						<span class="name">体育</span>
+					</li>
+					<li class="news-classification ">
+						<span class="name">财经</span>
+					</li>
+					<li class="news-classification">
+						<span class="name">娱乐</span>
+					</li>
+					<li class="news-classification">
+						<span class="name">军事</span>
+					</li>
+					<li class="news-classification">
+						<span class="name">社会</span>
+					</li>
+					<li class="news-classification">
+						<span class="name">游戏</span>
+					</li>
+				</ul>
+			</div>
+			<div class="options-level2-item ">
+				新闻评论
+			</div>
+		</div>
+	</div>
+	<div class="bigContents ">
+		<div class="welcome bigContents-content on">
+			欢迎来到NRS后台管理系统！
+		</div>
+		<div class="bigContents-content news">
+			<div class="bigContents-content-news-classification">
+				<div class="news-content-title">
+					<span class="name">国内</span>新闻列表
+					<button class="addNews">添加新闻</button>
+				</div>
+
+				<div class="news-content-items">
+					<div class="news-content-options clear">
+						<span class="name">
+							标题</span>
+							<span class="time">发布时间</span>
+							<span class="options">操作</span>
+						</div>
+						<div class="news-content-item-wrapper">	
+							
+						</div>
+						<div class="news-content-pages clear">
+
+							<div class="allPages">
+								<span class="number current">1</span>
+								<span class="number">2</span>
+								<span class="number">3</span>
+								<span class="number">4</span>
+								<span class="number">5</span>
+								<span class="number">6</span>
+								<span class="number">7</span>
+							</div>
+						</div>
+					</div>
+					<div class="news-editBlock">
+						这里是编辑框
+						<div class="title">
+							<span class="name">标题：</span> <input type="text">
+						</div>
+						<div class="author">
+							<span class="name">
+								作者：
+							</span>
+							<input type="text">
+						</div>
+						<div class="content">
+							<div class="words">
+								<span class="name">
+									内容：<br>
+								</span>
+								<textarea name="" id="" cols="30" rows="10"></textarea>
+							</div>
+							<div class="upload uploadImg">
+								<div class="name">
+									上传图片：
+								</div>
+								<input type="text">
+
+							</div>
+							<div class="upload uploadVideo">
+								<div class="name">
+									上传视频：
+								</div>
+								<input type="text">
+							</div>
+							<div class="submit">
+								<button class="confirm">提交</button>
+								<button class="cancel">取消</button>
+							</div>
+						</div>
+					</div>
+					<div class="news-addBlock">
+						这里是增加新闻框
+						<div class="title">
+							<span class="name">标题：</span> <input type="text">
+						</div>
+						<div class="author">
+							<span class="name">
+								作者：
+							</span>
+							<input type="text">
+						</div>
+						<div class="content">
+							<div class="words">
+								<span class="name">
+									内容：<br>
+								</span>
+								<textarea name="" id="" cols="30" rows="10"></textarea>
+							</div>
+							<div class="upload uploadImg">
+								<div class="name">
+									上传图片：
+								</div>
+								<!-- <input type="text"> -->
+								<form class="form-signin uploadImageForm" role="form" method="post" enctype='multipart/form-data' action="/admin/uploadImg">
+									<!-- <h2 class="form-signin-heading">上传文件</h2> -->
+									<input id="fulAvatar" name="fulAvatar" multiple type="file" class="form-control imageUpload" />    
+									请写上新闻类型的名字：<input class="typeName" type="text" name="typeName">
+									<br/>
+									<button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
+								</form>
+							</div>
+							<div class="upload uploadVideo">
+								<div class="name">
+									上传视频：
+								</div>
+								<!-- <input type="text"> -->
+								<form class="form-signin uploadVideoForm" role="form" method="post" enctype='multipart/form-data' action="/admin/uploadVideo">
+									<!-- <h2 class="form-signin-heading">上传文件</h2> -->
+									<input id="fulAvatar" name="fulAvatar" type="file" class="form-control videoUpload" />  
+									请写上新闻类型的名字：<input class="typeName" type="text" name="typeName">   
+									<br/>
+									<button id="btnSub" class="btn btn-lg btn-primary" type="submit">上 传</button>
+								</form>
+							</div>
+							<div class="submit">
+								<button class="confirm">提交</button>
+								<button class="cancel">取消</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<script>
+					$(function() {
+						$(".logoutBtn").click(function(event) {
+							$.ajax({
+								url: '/admin/adminLogout.html',
+								type: 'post',
+								success: function(data) {
+									if (data) {
+										if (data === "logoutSuccess") {
+											alert("注销成功！跳转到管理员登录页面！");
+											window.location.href = "/admin/adminLogin.html";
+										}
+									} else {
+										alert("404  未返回数据");
+									}
+								}
+							});
+						});
+						// 点击一级操作
+						$(".options-level1 .item").click(function(event) {
+							/* Act on the event */
+							var index = $(this).index();
+							// 若不在此一级页面，则右侧回到欢迎页
+							if (!$(this).hasClass('on')) {
+								$(".bigContents-content.welcome").addClass('on').siblings().removeClass('on');
+							}
+							$(this).addClass('on').siblings().removeClass('on');
+							// 显示二级内容
+							$(".options-level2 .options-level2-item").eq(index).addClass('db').siblings().removeClass('db');
+						});
+						// 点击新闻类别
+						$(".options-level2-item .news-classification").click(function(event) {
+							/* Act on the event */
+							$(this).addClass("on").siblings().removeClass('on');
+							// 右侧大content显示news
+							$(".bigContents-content.news").addClass('on').siblings().removeClass('on');
+							// 清空列表
+							$('.news-content-item-wrapper').text("");
+							var index = $(this).index();
+
+							// $(".bigContents-content.news .bigContents-content-news-classification").eq(index).addClass('on').siblings().removeClass('on');
+							// 右侧ajax获取数据库内容，并显示
+							var newsType = $(this).find('.name').text();
+							// 获取10个，若小于等于10个，则直接显示
+							$.ajax({
+								url: '/admin/getNewsItems',
+								type: 'post',
+								data: {
+									newsType: newsType
+								},
+								success: function(res) {
+									if (!res) {
+										alert("ajax错误！");
+										return;
+									}
+									// alert(res)
+									// 拿到items数据
+									var items = res;
+									console.log(items);
+									// 热点新闻数组
+									var hotsArr = [];
+									var usualArr = [];
+									// 用unshift方法将最新的新闻放在最前面
+									items.forEach(function(elem, index, array) {
+										if (elem.hot) {
+											hotsArr.unshift(elem);
+										} else {
+											usualArr.unshift(elem);
+										}
+									});
+									// 将热点新闻渲染到页面
+									hotsArr.forEach(function(elem, index, array) {
+										var title = elem.title;
+										var publishTime = elem.publishTime;
+										var temp = $('<div class="news-content-item hot"><span class="name">' + title + '</span><span class="time">' + publishTime + '</span><button class="editNews">编辑</button><button  class="delete">删除</button><button class="cancelHot">取消热点</button></div>');
+
+										temp.appendTo($('.news-content-item-wrapper'));
+									});
+									// 渲染普通新闻到页面
+									var usualCount = 10 - hotsArr.length;
+									// 若普通新闻条数够用,则取前几个出来渲染
+									if (usualArr.length >= usualCount) {
+										for (var i = 0; i < usualCount; i++) {
+											var title = usualArr[i].title;
+											var publishTime = usualArr[i].publishTime;
+											var temp = $('<div class="news-content-item"><span class="name">' + title + '</span><span class="time">' + publishTime + '</span><button class="editNews">编辑</button><button class="delete">删除</button><button class="setHot">设为热点</button></div>');
+
+											temp.appendTo($('.news-content-item-wrapper'));
+										}
+									} else {
+										// 若普通新闻条数不够用,则渲染数组里面所有
+										// 将热点新闻渲染到页面
+										usualArr.forEach(function(elem, index, array) {
+											var title = elem.title;
+											var publishTime = elem.publishTime;
+											var temp = $('<div class="news-content-item "><span class="name">' + title + '</span><span class="time">' + publishTime + '</span><button class="editNews">编辑</button><button class="delete">删除</button><button class="setHot">设为热点</button></div>');
+
+											temp.appendTo($('.news-content-item-wrapper'));
+										});
+									}
+									// 将右侧的列表名字换掉
+									$(".bigContents-content-news-classification .news-content-title .name").text(newsType);
+									// 渲染完之后，显示
+									$(".bigContents-content-news-classification").addClass('on');
+								}
+							});
+});
+// 点击编辑按钮，则出现编辑框
+$('.news-content-item-wrapper').on('click', 'button.editNews', function(event) {
+	var title = $(this).parents(".news-content-item").find('.name').text();
+	var newsType = $(".bigContents-content-news-classification .news-content-title .name").text();
+	// 从数据库拿到关于此条新闻的数据
+	$.ajax({
+		url: '/admin/getNewsItems',
+		type: 'post',
+		data: {newsType: newsType},
+		success: function(res) {
+			if (!res) {
+				alert("ajax错误！");
+				return;
+			}
+			// 
+			var items = res;
+			var tempNews = {};
+			for (var i = 0; i < items.length; i++) {
+				if (items[i].title === title) {
+					tempNews = items[i];
+					// 结束
+					break;
+				}
+			}
+			//渲染到编辑框
+			$(".news-editBlock .title input").val(tempNews.title);
+			$(".news-editBlock .author input").val(tempNews.author);
+			$(".news-editBlock .content .words textarea ").val(tempNews.content);
+			// 显示
+			$(".news-editBlock").addClass('on');
+		}
+	})
+	/* Act on the event */
+});
+// 点击删除按钮，则从数据库删除
+$('.news-content-item-wrapper').on('click', '.news-content-item .delete', function(event) {
+	var title = $(this).parents(".news-content-item").find('.name').text();
+	var newsType = $(".bigContents-content-news-classification .news-content-title .name").text();
+
+	$.ajax({
+		url: '/admin/deleteAItem',
+		type: 'post',
+		data: {newsType: newsType, title: title},
+		success: function(res) {
+			if (res === "ok") {
+				console.log("删除成功！");
+			}
+		}
+	});
+	
+	/* Act on the event */
+});
+
+// 点击设为热点按钮，则从数据库设为热点
+$('.news-content-item-wrapper').on('click', '.news-content-item .setHot', function(event) {
+	var title = $(this).parents(".news-content-item").find('.name').text();
+	var newsType = $(".bigContents-content-news-classification .news-content-title .name").text();
+
+	$.ajax({
+		url: '/admin/setHotAItem',
+		type: 'post',
+		data: {newsType: newsType, title: title},
+		success: function(res) {
+			if (res === "ok") {
+				console.log("设为热点成功");
+			}
+		}
+	});
+	
+	/* Act on the event */
+});
+
+// 点击设为热点按钮，则从数据库设为热点
+$('.news-content-item-wrapper').on('click', '.news-content-item .cancelHot', function(event) {
+	var title = $(this).parents(".news-content-item").find('.name').text();
+	var newsType = $(".bigContents-content-news-classification .news-content-title .name").text();
+
+	$.ajax({
+		url: '/admin/cancelHotAItem',
+		type: 'post',
+		data: {newsType: newsType, title: title},
+		success: function(res) {
+			if (res === "ok") {
+				console.log("取消热点成功");
+			}
+		}
+	});
+	
+	/* Act on the event */
+});
+})
+</script>
+<script>
+	// 管理新闻，第三级操作
+	$(function() {
+		var $addBtn = $(".bigContents-content-news-classification .news-content-title .addNews");
+		var $editBtn = $(".bigContents-content-news-classification .news-content-item .editNews");
+		var $editCancelBtn = $(".bigContents-content-news-classification .news-editBlock .cancel");
+		var $editConfirmBtn = $(".bigContents-content-news-classification .news-editBlock .confirm");
+		var $addCancelBtn = $(".bigContents-content-news-classification .news-addBlock .cancel");
+		var $addConfirmBtn = $(".bigContents-content-news-classification .news-addBlock .confirm");
+		var $addUploadImageForm = $(".bigContents-content-news-classification .news-addBlock .uploadImageForm");
+		var $addUploadVideoForm = $(".bigContents-content-news-classification .news-addBlock .uploadVideoForm");
+
+		// 点击添加新闻，出现编辑框,隐藏内容
+		$addBtn.click(function(event) {
+			var typeName = $(this).parents(".bigContents-content-news-classification").find('.news-content-title .name').text();
+			/* Act on the event */
+			$(this).parents(".bigContents-content-news-classification").find('.news-addBlock').addClass('on');
+			$(this).parents(".bigContents-content-news-classification").find('.news-content-items').addClass('dn');
+			// 将新闻类别写到form里面
+			$(this).parents(".bigContents-content-news-classification").find('.uploadImageForm .typeName').val(typeName);
+			$(this).parents(".bigContents-content-news-classification").find('.uploadVideoForm .typeName').val(typeName);
+		});
+
+		// 点击编辑新闻，出现编辑框,隐藏内容
+		$editBtn.click(function(event) {
+			/* Act on the event */
+			$(this).parents(".bigContents-content-news-classification").find('.news-editBlock').addClass('on');
+			$(this).parents(".bigContents-content-news-classification").find('.news-content-items').addClass('dn');
+		});
+		
+		// 点击取消按钮，出现内容，隐藏编辑框
+		$editCancelBtn.click(function(event) {
+			/* Act on the event */
+			$(this).parents(".bigContents-content-news-classification").find('.news-content-items').removeClass('dn');
+			$(this).parents(".bigContents-content-news-classification").find('.news-editBlock').removeClass('on');
+		});
+		$addCancelBtn.click(function(event) {
+			/* Act on the event */
+			$(this).parents(".bigContents-content-news-classification").find('.news-content-items').removeClass('dn');
+			$(this).parents(".bigContents-content-news-classification").find('.news-addBlock').removeClass('on');
+		});
+
+				// 点击提交按钮，出现内容，隐藏编辑框
+				$editConfirmBtn.click(function(event) {
+					/* Act on the event */
+					$(this).parents(".bigContents-content-news-classification").find('.news-content-items').removeClass('dn');
+					$(this).parents(".bigContents-content-news-classification").find('.news-editBlock').removeClass('on');
+				});
+	// // 点击增加新闻块的上传图片form
+	// $addUploadImageForm.submit(function(event) {
+	// 	/* Act on the event */
+	// 	var newsType = $(this).parents(".bigContents-content-news-classification").find('.news-content-title .name').text();
+
+	// 	$.ajax({
+	// 		url: '/admin/uploadImg',
+	// 		type: 'post',
+	// 		data: {newsType: newsType},
+	// 		success: function(res) {
+	// 			if (!res) {
+	// 				alert("ajax出错！");
+	// 				return;
+	// 			}
+	// 			if (res === "ok") {
+	// 				alert("上传成功！");
+	// 			}
+	// 		}
+	// 	})
+	// 	// 提交，执行文件上传到服务器
+	// 	// return false;
+
+	// });
+$addConfirmBtn.click(function(event) {
+	var newsType = $(this).parents(".bigContents-content-news-classification").find('.news-content-title .name').text();
+	var title = $(this).parents(".news-addBlock").find('.title input').val();
+	var author = $(this).parents(".news-addBlock").find('.author input').val();
+	var content = $(this).parents(".news-addBlock").find('.content .words textarea').val();
+					// 时间
+					var tempDate = new Date();
+					var y = tempDate.getFullYear();
+					var mon = tempDate.getMonth() + 1;
+					var d = tempDate.getDate();
+					var h = tempDate.getHours();
+					var min = tempDate.getMinutes();
+
+					var publishTime = y + "年" + mon + "月" + d + "日" + h + "时" + min + "分";
+					var publishTimeValue = tempDate.getTime();
+					// alert(publishTime);
+
+					// 设置图片上传的路径
+					var imagesArr = [];
+					var tempName = $(this).parents(".news-addBlock").find('.content .imageUpload').val();
+					if (tempName !== "") {
+						var tempName = tempName.split("\\").pop();
+						var imgObj = {
+							name: tempName,
+							dir: "/news/images/" + newsType,
+							renderURL: "/news/images/" + newsType + "/" + tempName
+						};
+						imagesArr.push(imgObj);
+					} else {
+						imagesArr = [];
+					}
+
+					// 设置视频上传的路径
+					var videosArr = [];
+					var tempName = $(this).parents(".news-addBlock").find('.content .videoUpload').val();
+					if (tempName !== "") {
+						var tempName = tempName.split("\\").pop();
+						var videoObj = {
+							name: tempName,
+							dir: "/news/videos/" + newsType,
+							renderURL: "/news/videos/" + newsType + "/" + tempName
+						};
+						videosArr.push(videoObj);
+					} else {
+						videosArr = [];
+					}
+
+					var obj = {
+						title: title,
+						author: author,
+						content: content,
+						images: imagesArr,
+						videos: videosArr,
+						publishTime: publishTime,
+						publishTimeValue: publishTimeValue,
+						hot: false
+					};
+					var data = {
+						newsType: newsType,
+						obj: obj
+					};
+					console.log(newsType);
+					// 因为data属性里面有对象，所以转为JSON对象，再传递
+					var data = JSON.stringify(data);
+					console.log(data);
+					// 添加到后台
+					$.ajax({
+						url: '/admin/addANewsItem', 
+						type: 'post',
+						contentType: "application/json;charset=utf-8",
+						data: data,
+						success: function(res){
+							if (!res) {
+								alert("ajax出错！");
+								return;
+							}
+							if (res === "ok") {
+								alert("添加成功！");
+							} else if (res === "error") {
+								alert("后台处理失败！");
+							}
+
+						}
+					});
+					
+					/* Act on the event */
+					$(this).parents(".bigContents-content-news-classification").find('.news-content-items').removeClass('dn');
+					$(this).parents(".bigContents-content-news-classification").find('.news-addBlock').removeClass('on');
+				});
+})
+</script>
+</body>
+</html>
